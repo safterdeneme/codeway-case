@@ -1,4 +1,4 @@
-const db = require('../utils/Firebase');
+const { db } = require('../utils/Firebase');
 
 const getAppConfig = async () => {
   const configRef = db.collection('config').doc('appConfig');

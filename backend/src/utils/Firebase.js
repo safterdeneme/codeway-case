@@ -12,9 +12,13 @@ const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID,
   };
   
-  // Initialize Firebase
   const app = admin.initializeApp(firebaseConfig);
 
-const db = admin.firestore();
+  const fireUser = admin.auth();
 
-module.exports = db;
+  const db = admin.firestore();
+
+module.exports = {
+  db,
+  fireUser
+};

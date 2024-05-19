@@ -2,7 +2,7 @@ const express = require('express')
 const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
-const { FireStoreRoutes } = require('./routes');
+const { FireStoreRoutes, FirebaseRoutes } = require('./routes');
 
 
 
@@ -19,5 +19,6 @@ app.options('*', cors());
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
   app.use('/api/config', FireStoreRoutes);
+  app.use('/api/login', FirebaseRoutes);
   
 });
