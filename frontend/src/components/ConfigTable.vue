@@ -6,7 +6,7 @@
       <span></span>
     </div>
     <div class="parameter-list">
-      <ParameterRow v-for="(parameter, index) in parameters" :key="index" :parameter="parameter" :columns="columns"/>
+      <ParameterRow v-for="(parameter, index) in parameters" :key="index" :parameter="parameter" :columns="columns" @update-parameter="updateParameter" @delete-parameter="deleteParameter"/>
     </div>
     <AddParameter @add-parameter="addParameter" :columns="columns"/>
   </div>
@@ -35,6 +35,12 @@ export default {
   methods: {
     addParameter(newParameter) {
       this.$emit('add-parameter', newParameter);
+    },
+    deleteParameter(id) {
+      this.$emit('delete-parameter', id);
+    },
+    updateParameter(updatedParam, id) {
+      this.$emit('update-parameter', updatedParam, id);
     }
   }
 };

@@ -1,13 +1,25 @@
 <template>
   <div class="sign-in-container">
-    <img src="@/assets/icon.png" alt="Logo" class="logo"/>
+    <img src="../assets/icon.png" alt="Logo" class="logo" />
     <h2>Please sign in</h2>
     <form @submit.prevent="signIn">
       <div class="input-container">
-        <input type="email" v-model="email" placeholder="E-mail address" required class="top-rounded"/>
+        <input
+          type="email"
+          v-model="email"
+          placeholder="E-mail address"
+          required
+          class="top-rounded"
+        />
       </div>
       <div class="input-container">
-        <input type="password" v-model="password" placeholder="Password" required class="bottom-rounded"/>
+        <input
+          type="password"
+          v-model="password"
+          placeholder="Password"
+          required
+          class="bottom-rounded"
+        />
       </div>
       <button type="submit">Sign in</button>
     </form>
@@ -16,20 +28,28 @@
 </template>
 
 <script>
+import { login } from '../services/apiService'
+
 export default {
-  name: 'SignIn',
-  data() {
-    return {
-      email: '',
-      password: ''
-    };
-  },
-  methods: {
-    signIn() {
-      console.log('Email:', this.email, 'Password:', this.password);
+    name: 'SignIn',
+    data() {
+      return {
+        email: '',
+        password: ''
+      };
+    },
+    methods: {
+      async signIn() {
+
+        try {
+                await login(this.email, this.password)
+                this.$router.push('/');
+              } catch (err) {
+                console.log(err)
+              }
+            }
     }
-  }
-};
+  };
 </script>
 
 <style scoped>

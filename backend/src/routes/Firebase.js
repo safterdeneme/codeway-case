@@ -1,9 +1,15 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
+const validateFirebaseIdToken = require("../middlewares/validateFirebaseIdToken");
+const authenticateWithPredefinedToken = require("../middlewares/authenticateWithPredefinedToken");
 
-const { logIn} = require('../controllers/Firebase')
+const { updateConfig, getConfig, deleteConfig, addConfig } = require("../controllers/Firebase");
 
-router.post('/', logIn);
+router.put("/update/:id", validateFirebaseIdToken, updateConfig);
+router.delete("/delete/:id", validateFirebaseIdToken, deleteConfig);
+router.post("/add", validateFirebaseIdToken, addConfig);
+router.get("/get", authenticateWithPredefinedToken, getConfig);
+
 
 module.exports = router;

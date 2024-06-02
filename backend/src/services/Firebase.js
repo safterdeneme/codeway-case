@@ -1,18 +1,38 @@
-const { fireUser } = require("../utils/Firebase");
-const logIn = async (email, password) => {
-  try {
-    const userCredential = await fireUser.signInWithEmailAndPassword(
-      email,
-      password
-    );
-    const user = userCredential?.user;
-    console.log("User signed in:", user.uid);
-  } catch (error) {
-    console.error("Error signing in:", error);
-    throw new Error("No such user!");
-  }
+const { db } = require("../utils/Firebase");
+
+const getAppConfig = async () => {
+  const configs = [];
+  const configRef = db.collection('configs');
+  const snapshot = await configRef.get();
+  snapshot.forEach(doc => {
+    configs.push({ id: doc.id, ...doc.data() });
+  });
+  return configs;
 };
 
+const addAppConfig = async (newParameter) => {
+  await db.collection('configs').add(newParameter);
+  return await getAppConfig()
+};
+
+
+const updateAppConfig = async (id, configData) => {
+  const configRef = db.collection('configs').doc(id); 
+  await configRef.update(configData);
+  return await getAppConfig()
+  
+};
+
+const deleteAppConfig = async (id) => {
+  const configRef = db.collection('configs').doc(id);
+  await configRef.delete()
+  return await getAppConfig()
+};
+
+
 module.exports = {
-    logIn
+  getAppConfig,
+  updateAppConfig,
+  deleteAppConfig,
+  addAppConfig
 };

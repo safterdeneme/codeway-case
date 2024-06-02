@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import SignIn from '@/pages/SignIn'
-import ConfigManagement from '@/pages/ConfigManagement'
+import SignIn from '../pages/SignIn'
+import ConfigManagement from '../pages/ConfigManagement'
 
 Vue.use(Router)
 
@@ -13,7 +13,7 @@ export default new Router({
       component: SignIn
     },
     {
-      path: '/config-management',
+      path: '/',
       name: 'ConfigManagement',
       component: ConfigManagement
     }

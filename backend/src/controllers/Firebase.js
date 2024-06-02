@@ -1,16 +1,53 @@
-const { logIn: firebaseLogin } = require('../services/Firebase');
 
-const logIn = async (req, res) => {
-    try {
-      const {email, password}  = req.body 
-      console.log(email,password)
-      const config = await firebaseLogin(email, password);
-      res.json(config);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
-  
+const { getAppConfig, updateAppConfig, deleteAppConfig, addAppConfig } = require('../services/Firebase');
+
+
+const getConfig = async (req, res) => {
+  try {
+    const config = await getAppConfig();
+    res.status(200).json({ message: 'Configs retrieved successfully', config });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateConfig = async (req, res) => {
+  try {
+    const id = req.params.id
+    const configData = req.body
+    const config = await updateAppConfig(id, configData);
+    res.status(200).json({ message: 'Config updated successfully', config });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+const deleteConfig = async (req, res) => {
+  try {
+    const id = req.params.id
+    const config = await deleteAppConfig(id);    
+    res.status(200).json({ message: 'Config deleted successfully', config  });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+const addConfig = async (req, res) => {
+  try {
+    const configData = req.body
+    const config = await addAppConfig(configData);
+    res.status(200).json({ message: 'Config added successfully', config });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
-    logIn
-}
+  getConfig,
+  updateConfig,
+  deleteConfig,
+  addConfig
+
+};

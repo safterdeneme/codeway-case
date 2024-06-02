@@ -1,10 +1,10 @@
 <template>
   <div class="config-management">
     <div class="navbar">
-      <img src="@/assets/icon.png" alt="Logo" class="logo"/>
+      <img src="../assets/icon.png" alt="Logo" class="logo"/>
       <UserProfile />
     </div> 
-     <ConfigTable :parameters="parameters" @add-parameter="addParameter"/>
+     <ConfigTable :parameters="parameters" @add-parameter="addParameter" @update-parameter="updateParameter" @delete-parameter="deleteParameter"/>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ import AddParameter from '../components/AddParameter.vue';
 import UserProfile from '../components/UserProfile.vue';
 import ConfigTable from '../components/ConfigTable.vue';
 
+import { getConfig, addConfig, deleteConfig, updateConfig } from '../services/apiService'
 export default {
   name: 'ConfigManagement',
   components: {
@@ -25,18 +26,23 @@ export default {
   },
   data() {
     return {
-      parameters: [
-        { key: 'min_version', value: '1.4.4', description: 'Minimum required version of the app', createDate: '10/05/2021 01:58' },
-        { key: 'latest_version', value: '1.4.7', description: 'Latest version of the app', createDate: '10/05/2021 01:58' },
-        { key: 'pricing_tier', value: 't6', description: 'Pricing tier of the user', createDate: '07/07/2021 11:13' },
-        { key: 'scroll', value: '5', description: 'Index of Scroll Paywall for free users.', createDate: '25/08/2021 10:22' },
-        { key: 'scroll_limit', value: '13', description: 'Index of Scroll Limit Paywall for free users.', createDate: '25/08/2021 10:23' }
-      ]
+      parameters: []
     };
   },
+  async mounted() {
+      const parameters = await getConfig();
+      this.parameters = parameters;   
+  },
   methods: {
-    addParameter(newParameter) {
-      this.parameters.push(newParameter);
+    async addParameter(newParameter) {
+      this.parameters = await addConfig(newParameter)
+    },
+    async deleteParameter(id) {
+      this.parameters = await deleteConfig(id)
+    },
+    async updateParameter(updatedParam, id) {
+      this.parameters = await updateConfig(id, updatedParam)
+      
     }
   }
 };

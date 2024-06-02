@@ -1,8 +1,7 @@
 require('dotenv').config();
 
-const authenticate = (req, res, next) => {
+const authenticateWithPredefinedToken = (req, res, next) => {
   const apiToken = req.headers['api-token'];
-
   if (apiToken === process.env.API_TOKEN) {
     next();
   } else {
@@ -10,4 +9,4 @@ const authenticate = (req, res, next) => {
   }
 };
 
-module.exports = authenticate;
+module.exports = authenticateWithPredefinedToken;

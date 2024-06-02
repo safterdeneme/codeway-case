@@ -17,7 +17,6 @@ export default {
         key: '',
         value: '',
         description: '',
-        createDate: new Date().toLocaleString()
       }
     };
   },
@@ -28,7 +27,6 @@ export default {
         this.newParameter.key = '';
         this.newParameter.value = '';
         this.newParameter.description = '';
-        this.newParameter.createDate = new Date().toLocaleString();
       }
     }
   }

@@ -3,8 +3,8 @@
     <span>{{ parameter.key }}</span>
     <span>{{ parameter.value }}</span>
     <span>{{ parameter.description }}</span>
-    <span>{{ parameter.createDate }}</span>
-    <button class='edit-button' @click="editParameter">Edit</button>
+    <span>{{ parameter.created_at }}</span>
+    <button class='edit-button' @click="updateParameter">Edit</button>
     <button class='delete-button' @click="deleteParameter">Delete</button>
   </div>
 </template>
@@ -16,10 +16,11 @@ export default {
     parameter: Object
   },
   methods: {
-    editParameter() {
+    updateParameter() {
+      this.$emit('update-parameter', this.parameter.key);
     },
     deleteParameter() {
-      this.$emit('delete-parameter', this.parameter.key);
+      this.$emit('delete-parameter', this.parameter.id);
     }
   }
 };
