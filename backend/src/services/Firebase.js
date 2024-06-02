@@ -16,9 +16,24 @@ const addAppConfig = async (newParameter) => {
 };
 
 
-const updateAppConfig = async (id, configData) => {
+const isDocChanged = (doc, initialDoc) => {
+  for (const key in initialDoc) {
+    if (initialDoc[key] !== doc[key]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const updateAppConfig = async (id, initialParameter, updatedParameter) => {
   const configRef = db.collection('configs').doc(id); 
-  await configRef.update(configData);
+  const docSnapshot = await configRef.get();
+  const currentData = docSnapshot.data();
+  const isChangedExternally = isDocChanged(currentData, initialParameter)
+
+  if(!isChangedExternally){
+    await configRef.update(updatedParameter);
+  }
   return await getAppConfig()
   
 };
@@ -28,6 +43,7 @@ const deleteAppConfig = async (id) => {
   await configRef.delete()
   return await getAppConfig()
 };
+
 
 
 module.exports = {

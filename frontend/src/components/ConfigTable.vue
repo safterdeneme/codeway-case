@@ -67,10 +67,11 @@ export default {
     },
     editParameter(parameter) {
       this.selectedParameter = parameter;
+      this.initialParameter = { ...parameter };
       this.isEditing = true;
     },
     saveEditedParameter(updatedParameter) {
-      this.$emit('update-parameter', updatedParameter, updatedParameter.id);
+      this.$emit('update-parameter', updatedParameter, this.initialParameter, updatedParameter.id);
       this.isEditing = false;
       this.selectedParameter = null;
     }

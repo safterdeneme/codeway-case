@@ -47,8 +47,8 @@ export default {
     async deleteParameter(id) {
       this.parameters = await deleteConfig(id)
     },
-    async updateParameter(updatedParam, id) {
-      this.parameters = await updateConfig(id, updatedParam)
+    async updateParameter(updatedParam, initialParam, id) {
+      this.parameters = await updateConfig(updatedParam, initialParam, id)
       
     }
   }

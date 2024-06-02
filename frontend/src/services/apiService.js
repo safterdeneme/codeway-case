@@ -41,8 +41,8 @@ const addConfig = async (newParameter) => {
   return response?.data?.config;
 };
 
-const updateConfig = async (id, updatedParameter) => {
-  const response = await api.put(`/update/${id}`, updatedParameter);
+const updateConfig = async (updatedParameter, initialParameter, id) => {
+  const response = await api.put(`/update/${id}`, {updatedParameter, initialParameter});
   return response?.data?.config;
 };
 
