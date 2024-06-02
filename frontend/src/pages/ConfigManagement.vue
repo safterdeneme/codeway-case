@@ -4,25 +4,32 @@
       <img src="../assets/icon.png" alt="Logo" class="logo"/>
       <UserProfile />
     </div> 
-     <ConfigTable :parameters="parameters" @add-parameter="addParameter" @update-parameter="updateParameter" @delete-parameter="deleteParameter"/>
+    <ConfigTable 
+      :parameters="parameters" 
+      @add-parameter="addParameter" 
+      @update-parameter="updateParameter" 
+      @delete-parameter="deleteParameter"
+    />
   </div>
 </template>
 
 <script>
 import ParameterRow from '../components/ParameterRow.vue';
 import AddParameter from '../components/AddParameter.vue';
+import EditParameter from '../components/EditParameter.vue';
 import UserProfile from '../components/UserProfile.vue';
 import ConfigTable from '../components/ConfigTable.vue';
 
 import { getConfig, addConfig, deleteConfig, updateConfig } from '../services/apiService'
+
 export default {
   name: 'ConfigManagement',
   components: {
     ParameterRow,
     AddParameter,
+    EditParameter,
     UserProfile,
     ConfigTable
-    
   },
   data() {
     return {
@@ -61,11 +68,11 @@ export default {
 
 .navbar {
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
-
 }
+
 .logo {
   width: 40px;
   margin-bottom: 20px;

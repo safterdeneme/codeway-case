@@ -6,21 +6,44 @@
       <span></span>
     </div>
     <div class="parameter-list">
-      <ParameterRow v-for="(parameter, index) in parameters" :key="index" :parameter="parameter" :columns="columns" @update-parameter="updateParameter" @delete-parameter="deleteParameter"/>
+      <ParameterRow 
+        v-for="(parameter, index) in parameters" 
+        :key="index" 
+        :parameter="parameter" 
+        :columns="columns" 
+        @edit-parameter="editParameter"
+        @update-parameter="updateParameter" 
+        @delete-parameter="deleteParameter"
+      />
+      <EditParameter 
+      v-if="isEditing" 
+      :parameter="selectedParameter" 
+      :isVisible="isEditing" 
+      @save-parameter="saveEditedParameter"
+    />
     </div>
     <AddParameter @add-parameter="addParameter" :columns="columns"/>
+    
   </div>
 </template>
 
 <script>
 import ParameterRow from './ParameterRow.vue';
 import AddParameter from './AddParameter.vue';
+import EditParameter from './EditParameter.vue';
 
 export default {
   name: 'ConfigTable',
   components: {
     ParameterRow,
-    AddParameter
+    AddParameter,
+    EditParameter
+  },
+  data() {
+    return {
+      isEditing: false,
+      selectedParameter: null
+    };
   },
   props: {
     parameters: {
@@ -41,6 +64,15 @@ export default {
     },
     updateParameter(updatedParam, id) {
       this.$emit('update-parameter', updatedParam, id);
+    },
+    editParameter(parameter) {
+      this.selectedParameter = parameter;
+      this.isEditing = true;
+    },
+    saveEditedParameter(updatedParameter) {
+      this.$emit('update-parameter', updatedParameter, updatedParameter.id);
+      this.isEditing = false;
+      this.selectedParameter = null;
     }
   }
 };
@@ -52,7 +84,6 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  
 }
 
 .header {
@@ -61,8 +92,7 @@ export default {
   gap: 10px;
   grid-template-columns: 2fr 2fr 4fr 2fr 1fr 1fr;
   width: 100%;
-    padding: 10px;
-
+  padding: 10px;
   margin-bottom: 10px;
   color: #8a93af;
 }

@@ -4,7 +4,7 @@
     <span>{{ parameter.value }}</span>
     <span>{{ parameter.description }}</span>
     <span>{{ parameter.created_at }}</span>
-    <button class='edit-button' @click="updateParameter">Edit</button>
+    <button class='edit-button' @click="editParameter">Edit</button>
     <button class='delete-button' @click="deleteParameter">Delete</button>
   </div>
 </template>
@@ -16,8 +16,8 @@ export default {
     parameter: Object
   },
   methods: {
-    updateParameter() {
-      this.$emit('update-parameter', this.parameter.key);
+    editParameter() {
+      this.$emit('edit-parameter', this.parameter);
     },
     deleteParameter() {
       this.$emit('delete-parameter', this.parameter.id);
@@ -54,9 +54,5 @@ button:hover {
 }
 .delete-button {
   background-color: #e74c3c;
-
 }
-
-
-
 </style>
