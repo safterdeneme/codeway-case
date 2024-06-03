@@ -3,7 +3,9 @@
     <input type="text" v-model="newParameter.key" placeholder="New Parameter" />
     <input type="text" v-model="newParameter.value" placeholder="Value" />
     <input type="text" v-model="newParameter.description" placeholder="New Description" />
+    <div class= 'button-container'>
     <button @click="addParameter">ADD</button>
+  </div>
     <span></span>
   </div>
 </template>
@@ -37,9 +39,8 @@ export default {
 .add-parameter-container {
   display: grid;
   gap: 10px;
-  grid-template-columns: 2fr 2fr 6fr 1fr 1fr; 
+  grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 6fr) minmax(0, 1fr) minmax(0, 1fr); 
   width: 100%;
-  height: 30px;
   padding: 10px;
   border-radius: 5px;
 }
@@ -68,5 +69,26 @@ button {
 
 button:hover {
   opacity: 0.8;
+}
+@media (max-width: 768px) {
+  .add-parameter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #4b4b4b;
+    border-radius: 20px;
+    width: 90%;
+    padding: 20px;
+
+    .button-container {
+      width: 100%;
+      display: flex;
+      justify-content: center
+    }
+    button {
+      width: 100%;
+    }
+  }
+    
 }
 </style>

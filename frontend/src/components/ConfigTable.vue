@@ -21,8 +21,8 @@
       :isVisible="isEditing" 
       @save-parameter="saveEditedParameter"
     />
-    </div>
     <AddParameter @add-parameter="addParameter" :columns="columns"/>
+    </div>
     
   </div>
 </template>
@@ -85,6 +85,7 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  white-space: nowrap;
 }
 
 .header {
@@ -100,5 +101,15 @@ export default {
 
 .parameter-list {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .config-table {
+    height: 100%;
+    overflow: scroll;
+  }
+  .header{
+    display: none;
+  }
 }
 </style>
