@@ -68,7 +68,8 @@ export default {
     },
     editConfig(config) {
       this.selectedConfig = config;
-      this.initialConfig = { ...config };
+      const { id, ...restConfig } = config;
+      this.initialConfig = { ...restConfig };
       this.isEditing = true;
     },
     saveEditedConfig(updatedConfig) {
