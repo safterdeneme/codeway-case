@@ -5,49 +5,49 @@
       <span></span>
       <span></span>
     </div>
-    <div class="parameter-list">
-      <ParameterRow 
-        v-for="(parameter, index) in parameters" 
+    <div class="config-list">
+      <ConfigRow 
+        v-for="(config, index) in configs" 
         :key="index" 
-        :parameter="parameter" 
+        :config="config" 
         :columns="columns" 
-        @edit-parameter="editParameter"
-        @update-parameter="updateParameter" 
-        @delete-parameter="deleteParameter"
+        @edit-config="editConfig"
+        @update-config="updateConfig" 
+        @delete-config="deleteConfig"
       />
-      <EditParameter 
+      <EditConfig 
       v-if="isEditing" 
-      :parameter="selectedParameter" 
+      :config="selectedConfig" 
       :isVisible="isEditing" 
       @close-popup="closePopup"
-      @save-parameter="saveEditedParameter"
+      @save-config="saveEditedConfig"
     />
-    <AddParameter @add-parameter="addParameter" :columns="columns"/>
+    <AddConfig @add-config="addConfig" :columns="columns"/>
     </div>
     
   </div>
 </template>
 
 <script>
-import ParameterRow from './ParameterRow.vue';
-import AddParameter from './AddParameter.vue';
-import EditParameter from './EditParameter.vue';
+import ConfigRow from './ConfigRow.vue';
+import AddConfig from './AddConfig.vue';
+import EditConfig from './EditConfig.vue';
 
 export default {
   name: 'ConfigTable',
   components: {
-    ParameterRow,
-    AddParameter,
-    EditParameter
+    ConfigRow,
+    AddConfig,
+    EditConfig
   },
   data() {
     return {
       isEditing: false,
-      selectedParameter: null
+      selectedConfig: null
     };
   },
   props: {
-    parameters: {
+    configs: {
       type: Array,
       required: true
     },
@@ -57,28 +57,28 @@ export default {
     }
   },
   methods: {
-    addParameter(newParameter) {
-      this.$emit('add-parameter', newParameter);
+    addConfig(newConfig) {
+      this.$emit('add-config', newConfig);
     },
-    deleteParameter(id) {
-      this.$emit('delete-parameter', id);
+    deleteConfig(id) {
+      this.$emit('delete-config', id);
     },
-    updateParameter(updatedParam, id) {
-      this.$emit('update-parameter', updatedParam, id);
+    updateConfig(updatedParam, id) {
+      this.$emit('update-config', updatedParam, id);
     },
-    editParameter(parameter) {
-      this.selectedParameter = parameter;
-      this.initialParameter = { ...parameter };
+    editConfig(config) {
+      this.selectedConfig = config;
+      this.initialConfig = { ...config };
       this.isEditing = true;
     },
-    saveEditedParameter(updatedParameter) {
-      this.$emit('update-parameter', updatedParameter, this.initialParameter, updatedParameter.id);
+    saveEditedConfig(updatedConfig) {
+      this.$emit('update-config', updatedConfig, this.initialConfig, updatedConfig.id);
       this.isEditing = false;
-      this.selectedParameter = null;
+      this.selectedConfig = null;
     },
     closePopup() {
       this.isEditing = false;
-      this.selectedParameter = null;
+      this.selectedConfig = null;
     }
   }
 };
@@ -104,7 +104,7 @@ export default {
   color: #8a93af;
 }
 
-.parameter-list {
+.config-list {
   width: 100%;
 }
 

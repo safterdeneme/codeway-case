@@ -14,8 +14,8 @@ const getAppConfig = async () => {
   return configs;
 };
 
-const addAppConfig = async (newParameter) => {
-  const configWithCreatedAt = {...newParameter, created_at: new Date()}
+const addAppConfig = async (newConfig) => {
+  const configWithCreatedAt = {...newConfig, created_at: new Date()}
   await db.collection('configs').add(configWithCreatedAt);
   return await getAppConfig()
 };
@@ -30,17 +30,17 @@ const isDocChanged = (doc, initialDoc) => {
   return false;
 };
 
-const updateAppConfig = async (id, initialParameter, updatedParameter) => {
+const updateAppConfig = async (id, initialConfig, updatedConfig) => {
   const configRef = db.collection('configs').doc(id); 
   const docSnapshot = await configRef.get();
   const currentData = docSnapshot.data();
-  const isChangedExternally = isDocChanged(currentData, initialParameter)
+  const isChangedExternally = isDocChanged(currentData, initialConfig)
 
   if(isChangedExternally){
     throw new Error('Config updated from someone else. Refresh to obtain latest version') 
   }
 
-  await configRef.update(updatedParameter);
+  await configRef.update(updatedConfig);
   return await getAppConfig()
 };
 

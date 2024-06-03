@@ -14,8 +14,8 @@ const getConfig = async (req, res) => {
 const updateConfig = async (req, res) => {
   try {
     const id = req.params.id
-    const {updatedParameter, initialParameter} = req.body
-    const config = await updateAppConfig(id, initialParameter, updatedParameter);
+    const {updatedConfig, initialConfig} = req.body
+    const config = await updateAppConfig(id, initialConfig, updatedConfig);
     res.status(200).json({ message: 'Config updated successfully', config });
   } catch (error) {
     res.status(500).json({ error: error.message });

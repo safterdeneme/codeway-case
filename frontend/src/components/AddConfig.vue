@@ -1,10 +1,10 @@
 <template>
-  <div class="add-parameter-container">
-    <input type="text" v-model="newParameter.key" placeholder="New Parameter" />
-    <input type="text" v-model="newParameter.value" placeholder="Value" />
-    <input type="text" v-model="newParameter.description" placeholder="New Description" />
+  <div class="add-config-container">
+    <input type="text" v-model="newConfig.key" placeholder="New Config" />
+    <input type="text" v-model="newConfig.value" placeholder="Value" />
+    <input type="text" v-model="newConfig.description" placeholder="New Description" />
     <div class= 'button-container'>
-    <button @click="addParameter">ADD</button>
+    <button @click="addConfig">ADD</button>
   </div>
     <span></span>
   </div>
@@ -12,10 +12,10 @@
 
 <script>
 export default {
-  name: 'AddParameter',
+  name: 'AddConfig',
   data() {
     return {
-      newParameter: {
+      newConfig: {
         key: '',
         value: '',
         description: '',
@@ -23,12 +23,12 @@ export default {
     };
   },
   methods: {
-    addParameter() {
-      if (this.newParameter.key && this.newParameter.value && this.newParameter.description) {
-        this.$emit('add-parameter', { ...this.newParameter });
-        this.newParameter.key = '';
-        this.newParameter.value = '';
-        this.newParameter.description = '';
+    addConfig() {
+      if (this.newConfig.key && this.newConfig.value && this.newConfig.description) {
+        this.$emit('add-config', { ...this.newConfig });
+        this.newConfig.key = '';
+        this.newConfig.value = '';
+        this.newConfig.description = '';
       }
     }
   }
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.add-parameter-container {
+.add-config-container {
   display: grid;
   gap: 10px;
   grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 6fr) minmax(0, 1fr) minmax(0, 1fr); 
@@ -71,7 +71,7 @@ button:hover {
   opacity: 0.8;
 }
 @media (max-width: 1024px) {
-  .add-parameter-container {
+  .add-config-container {
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,28 +1,28 @@
 <template>
-  <div class="parameter-row">
-    <span><span class="label">Parameter Key: </span>{{ parameter.key }}</span>
-    <span><span class="label">Value: </span>{{ parameter.value }}</span>
-    <span><span class="label">Description: </span>{{ parameter.description }}</span>
-    <span><span class="label">Create Date: </span>{{ parameter.created_at }}</span>
+  <div class="config-row">
+    <span><span class="label">Parameter Key: </span>{{ config.key }}</span>
+    <span><span class="label">Value: </span>{{ config.value }}</span>
+    <span><span class="label">Description: </span>{{ config.description }}</span>
+    <span><span class="label">Create Date: </span>{{ config.created_at }}</span>
     <div class='button-container'>
-    <button class='edit-button' @click="editParameter">EDIT</button>
-    <button class='delete-button' @click="deleteParameter">DELETE</button>
+    <button class='edit-button' @click="editConfig">EDIT</button>
+    <button class='delete-button' @click="deleteConfig">DELETE</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ParameterRow',
+  name: 'ConfigRow',
   props: {
-    parameter: Object
+    config: Object
   },
   methods: {
-    editParameter() {
-      this.$emit('edit-parameter', this.parameter);
+    editConfig() {
+      this.$emit('edit-config', this.config);
     },
-    deleteParameter() {
-      this.$emit('delete-parameter', this.parameter.id);
+    deleteConfig() {
+      this.$emit('delete-config', this.config.id);
     }
   }
 };
@@ -34,7 +34,7 @@ span {
       padding: 5px;
     }
 
-.parameter-row {
+.config-row {
   display: grid;
   grid-template-columns: 2fr 2fr 4fr 2fr 1fr 1fr; 
   text-align: left;
@@ -77,7 +77,7 @@ button:hover {
 }
 
 @media (max-width: 1024px) {
-  .parameter-row {
+  .config-row {
     display: flex;
     flex-direction: column;
     justify-content: center;

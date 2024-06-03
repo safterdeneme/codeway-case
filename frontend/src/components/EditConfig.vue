@@ -1,14 +1,14 @@
 <template>
-  <div class="edit-parameter-overlay" v-if="isVisible">
-    <div class="edit-parameter-container">
+  <div class="edit-config-overlay" v-if="isVisible">
+    <div class="edit-config-container">
       <div class="close-button" @click="$emit('close-popup')">
         <i class="fas fa-times-circle"></i>
       </div>
-      <input type="text" v-model="editedParameter.key" placeholder="Parameter Key" />
-      <input type="text" v-model="editedParameter.value" placeholder="Value" />
-      <input type="text" v-model="editedParameter.description" placeholder="Description" />
+      <input type="text" v-model="editedConfig.key" placeholder="Parameter Key" />
+      <input type="text" v-model="editedConfig.value" placeholder="Value" />
+      <input type="text" v-model="editedConfig.description" placeholder="Description" />
       <div class="button-container">
-        <button @click="saveParameter">SAVE</button>
+        <button @click="saveConfig">SAVE</button>
       </div>
     </div>
   </div>
@@ -16,32 +16,32 @@
 
 <script>
 export default {
-  name: 'EditParameter',
+  name: 'EditConfig',
   props: {
-    parameter: Object,
+    config: Object,
     isVisible: Boolean
   },
   data() {
     return {
-      editedParameter: { ...this.parameter }
+      editedConfig: { ...this.config }
     };
   },
   watch: {
-    parameter(newParam) {
-      this.editedParameter = { ...newParam };
+    config(newParam) {
+      this.editedConfig = { ...newParam };
     }
   },
   methods: {
-    saveParameter() {
-      if (this.editedParameter.key && this.editedParameter.value && this.editedParameter.description) {
-        this.$emit('save-parameter', { ...this.editedParameter });
+    saveConfig() {
+      if (this.editedConfig.key && this.editedConfig.value && this.editedConfig.description) {
+        this.$emit('save-config', { ...this.editedConfig });
       }
     }
   }
 };
 </script>
 <style scoped>
-.edit-parameter-overlay {
+.edit-config-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -54,7 +54,7 @@ export default {
   z-index: 1000;
 }
 
-.edit-parameter-container {
+.edit-config-container {
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr;

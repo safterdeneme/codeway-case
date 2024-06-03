@@ -36,13 +36,13 @@ const getConfig = async () => {
   return response?.data?.config;
 };
 
-const addConfig = async (newParameter) => {
-  const response = await api.post('/add', newParameter);
+const addConfig = async (newConfig) => {
+  const response = await api.post('/add', newConfig);
   return response?.data?.config;
 };
 
-const updateConfig = async (updatedParameter, initialParameter, id) => {
-  const response = await api.put(`/update/${id}`, {updatedParameter, initialParameter});
+const updateConfig = async (updatedConfig, initialConfig, id) => {
+  const response = await api.put(`/update/${id}`, {updatedConfig, initialConfig});
   return response?.data?.config;
 };
 

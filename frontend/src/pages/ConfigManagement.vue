@@ -5,19 +5,19 @@
       <UserProfile />
     </div> 
     <ConfigTable 
-      :parameters="parameters" 
-      @add-parameter="addParameter" 
-      @update-parameter="updateParameter" 
-      @delete-parameter="deleteParameter"
+      :configs="configs" 
+      @add-config="addConfig" 
+      @update-config="updateConfig" 
+      @delete-config="deleteConfig"
     />
     <Toast v-if="toastMessage" :type="toastType" :message="toastMessage" @close="clearToast"/>
   </div>
 </template>
 
 <script>
-import ParameterRow from '../components/ParameterRow.vue';
-import AddParameter from '../components/AddParameter.vue';
-import EditParameter from '../components/EditParameter.vue';
+import ConfigRow from '../components/ConfigRow.vue';
+import AddConfig from '../components/AddConfig.vue';
+import EditConfig from '../components/EditConfig.vue';
 import UserProfile from '../components/UserProfile.vue';
 import ConfigTable from '../components/ConfigTable.vue';
 import Toast from '../components/Toast.vue';
@@ -27,50 +27,50 @@ import { getConfig, addConfig, deleteConfig, updateConfig } from '../services/ap
 export default {
   name: 'ConfigManagement',
   components: {
-    ParameterRow,
-    AddParameter,
-    EditParameter,
+    ConfigRow,
+    AddConfig,
+    EditConfig,
     UserProfile,
     ConfigTable,
     Toast
   },
   data() {
     return {
-      parameters: [],
+      configs: [],
       toastMessage: '',
       toastType: 'success'
     };
   },
   async mounted() {
-      const parameters = await getConfig();
-      this.parameters = parameters;   
+      const configs = await getConfig();
+      this.configs = configs;   
   },
   methods: {
-    async addParameter(newParameter) {
+    async addConfig(newConfig) {
       try {
-        const response = await addConfig(newParameter);
-        this.parameters = response;
-        this.showToast('success', response?.data?.message || 'Parameter added successfully.');
+        const response = await addConfig(newConfig);
+        this.configs = response;
+        this.showToast('success', response?.data?.message || 'Config added successfully.');
       } catch (error) {
-        this.showToast('error', error.response?.data?.error || 'Failed to add parameter.');
+        this.showToast('error', error.response?.data?.error || 'Failed to add config.');
       }
     },
-    async deleteParameter(id) {
+    async deleteConfig(id) {
       try {
         const response = await deleteConfig(id);
-        this.parameters = response;
-        this.showToast('success', response?.data?.message || 'Parameter deleted successfully.');
+        this.configs = response;
+        this.showToast('success', response?.data?.message || 'Config deleted successfully.');
       } catch (error) {
-        this.showToast('error', error.response?.data?.error || 'Failed to delete parameter.');
+        this.showToast('error', error.response?.data?.error || 'Failed to delete config.');
       }
     },
-    async updateParameter(updatedParam, initialParam, id) {
+    async updateConfig(updatedParam, initialParam, id) {
       try {
         const response = await updateConfig(updatedParam, initialParam, id);
-        this.parameters = response;
-        this.showToast('success', response?.data?.message || 'Parameter updated successfully.');
+        this.configs = response;
+        this.showToast('success', response?.data?.message || 'Config updated successfully.');
       } catch (error) {
-        this.showToast('error', error.response?.data?.error || 'Failed to update parameter.');
+        this.showToast('error', error.response?.data?.error || 'Failed to update config.');
       }
     },
     showToast(type, message) {
