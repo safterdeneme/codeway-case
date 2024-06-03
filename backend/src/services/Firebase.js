@@ -36,11 +36,12 @@ const updateAppConfig = async (id, initialParameter, updatedParameter) => {
   const currentData = docSnapshot.data();
   const isChangedExternally = isDocChanged(currentData, initialParameter)
 
-  if(!isChangedExternally){
-    await configRef.update(updatedParameter);
+  if(isChangedExternally){
+    throw new Error('Config updated from someone else. Refresh to obtain latest version') 
   }
+
+  await configRef.update(updatedParameter);
   return await getAppConfig()
-  
 };
 
 const deleteAppConfig = async (id) => {

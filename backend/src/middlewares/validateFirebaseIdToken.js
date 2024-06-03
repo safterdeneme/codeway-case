@@ -4,7 +4,7 @@ const validateFirebaseIdToken = async (req, res, next) => {
   const idToken = req.headers['authorization']?.split('Bearer ')[1];
 
   if (!idToken) {
-    return res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401).json({ error: 'Please Sign In' });
   }
 
   try {
@@ -12,7 +12,7 @@ const validateFirebaseIdToken = async (req, res, next) => {
     req.user = decodedToken;
     next();
   } catch (error) {
-    res.status(401).json({ error: 'Unauthorized' });
+    res.status(401).json({ error: 'Please Sign In' });
   }
 };
 

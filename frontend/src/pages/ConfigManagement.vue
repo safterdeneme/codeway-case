@@ -10,6 +10,7 @@
       @update-parameter="updateParameter" 
       @delete-parameter="deleteParameter"
     />
+    <Toast v-if="toastMessage" :type="toastType" :message="toastMessage" @close="clearToast"/>
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import AddParameter from '../components/AddParameter.vue';
 import EditParameter from '../components/EditParameter.vue';
 import UserProfile from '../components/UserProfile.vue';
 import ConfigTable from '../components/ConfigTable.vue';
+import Toast from '../components/Toast.vue';
 
 import { getConfig, addConfig, deleteConfig, updateConfig } from '../services/apiService'
 
@@ -29,11 +31,14 @@ export default {
     AddParameter,
     EditParameter,
     UserProfile,
-    ConfigTable
+    ConfigTable,
+    Toast
   },
   data() {
     return {
-      parameters: []
+      parameters: [],
+      toastMessage: '',
+      toastType: 'success'
     };
   },
   async mounted() {
@@ -42,14 +47,38 @@ export default {
   },
   methods: {
     async addParameter(newParameter) {
-      this.parameters = await addConfig(newParameter)
+      try {
+        const response = await addConfig(newParameter);
+        this.parameters = response;
+        this.showToast('success', response?.data?.message || 'Parameter added successfully.');
+      } catch (error) {
+        this.showToast('error', error.response?.data?.error || 'Failed to add parameter.');
+      }
     },
     async deleteParameter(id) {
-      this.parameters = await deleteConfig(id)
+      try {
+        const response = await deleteConfig(id);
+        this.parameters = response;
+        this.showToast('success', response?.data?.message || 'Parameter deleted successfully.');
+      } catch (error) {
+        this.showToast('error', error.response?.data?.error || 'Failed to delete parameter.');
+      }
     },
     async updateParameter(updatedParam, initialParam, id) {
-      this.parameters = await updateConfig(updatedParam, initialParam, id)
-      
+      try {
+        const response = await updateConfig(updatedParam, initialParam, id);
+        this.parameters = response;
+        this.showToast('success', response?.data?.message || 'Parameter updated successfully.');
+      } catch (error) {
+        this.showToast('error', error.response?.data?.error || 'Failed to update parameter.');
+      }
+    },
+    showToast(type, message) {
+      this.toastType = type;
+      this.toastMessage = message;
+      setTimeout(() => {
+        this.toastMessage = '';
+      }, 3000);
     }
   }
 };
