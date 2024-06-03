@@ -5,13 +5,18 @@ const getAppConfig = async () => {
   const configRef = db.collection('configs');
   const snapshot = await configRef.get();
   snapshot.forEach(doc => {
-    configs.push({ id: doc.id, ...doc.data() });
+    const data = doc.data();
+    if (data.created_at) {
+      data.created_at = data.created_at.toDate().toLocaleString();
+    }
+    configs.push({ id: doc.id, ...data });
   });
   return configs;
 };
 
 const addAppConfig = async (newParameter) => {
-  await db.collection('configs').add(newParameter);
+  const configWithCreatedAt = {...newParameter, created_at: new Date()}
+  await db.collection('configs').add(configWithCreatedAt);
   return await getAppConfig()
 };
 
