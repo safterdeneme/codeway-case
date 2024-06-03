@@ -70,7 +70,7 @@ button {
 button:hover {
   opacity: 0.8;
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .add-parameter-container {
     display: flex;
     flex-direction: column;

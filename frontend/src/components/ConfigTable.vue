@@ -108,7 +108,7 @@ export default {
   width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .config-table {
     height: 100%;
     overflow: scroll;

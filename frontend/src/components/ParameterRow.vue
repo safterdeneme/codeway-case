@@ -76,7 +76,7 @@ button:hover {
   background-color: #e74c3c;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .parameter-row {
     display: flex;
     flex-direction: column;
