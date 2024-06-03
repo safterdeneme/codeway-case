@@ -19,6 +19,7 @@
       v-if="isEditing" 
       :parameter="selectedParameter" 
       :isVisible="isEditing" 
+      @close-popup="closePopup"
       @save-parameter="saveEditedParameter"
     />
     <AddParameter @add-parameter="addParameter" :columns="columns"/>
@@ -72,6 +73,10 @@ export default {
     },
     saveEditedParameter(updatedParameter) {
       this.$emit('update-parameter', updatedParameter, this.initialParameter, updatedParameter.id);
+      this.isEditing = false;
+      this.selectedParameter = null;
+    },
+    closePopup() {
       this.isEditing = false;
       this.selectedParameter = null;
     }
