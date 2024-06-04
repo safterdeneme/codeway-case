@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import SignIn from '../pages/SignIn.vue'
+import SignIn from '../pages/signin.vue'
 import ConfigManagement from '../pages/ConfigManagement.vue'
 
 Vue.use(Router)
