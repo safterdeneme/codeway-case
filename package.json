@@ -1,0 +1,11 @@
+{
+    "name": "mern-app",
+    "version": "1.0.0",
+    "scripts": {
+      "heroku-postbuild": "./heroku-postbuild.sh"
+    },
+    "engines": {
+      "node": ">=14.0.0",
+      "yarn": ">=1.22.0"
+    }
+  }  
