@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/js/all.js';
 import { initializeToken } from './services/apiService';
 
 Vue.config.productionTip = false
-
+//
 initializeToken()
 
 new Vue({
