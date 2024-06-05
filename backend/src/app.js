@@ -17,18 +17,27 @@ app.use(cors({
   origin: '*',
 }));
 
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-eval'"],
-    styleSrc: ["'self'", "'unsafe-inline'"],
-    imgSrc: ["'self'", "data:"],
-    connectSrc: ["'self'", `http://localhost:${port}`, "https://*.firebaseio.com", "https://*.googleapis.com"],
-    fontSrc: ["'self'", "https:"],
-    objectSrc: ["'none'"],
-    upgradeInsecureRequests: [],
-  },
-}));
+
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+  );
+  next();
+});
+
+// app.use(helmet.contentSecurityPolicy({
+//   directives: {
+//     defaultSrc: ["'self'"],
+//     scriptSrc: ["'self'", "'unsafe-eval'"],
+//     styleSrc: ["'self'", "'unsafe-inline'"],
+//     imgSrc: ["'self'", "data:"],
+//     connectSrc: ["'self'", `http://localhost:${port}`, "https://*.firebaseio.com", "https://*.googleapis.com"],
+//     fontSrc: ["'self'", "https:"],
+//     objectSrc: ["'none'"],
+//     upgradeInsecureRequests: [],
+//   },
+// }));
 
 const frontendPath = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(frontendPath));
