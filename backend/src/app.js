@@ -18,11 +18,7 @@ app.use(cors({
 }));
 
 
-const isProduction = process.env.NODE_ENV === 'production';
-console.log(isProduction,"isProductinı")
-const connectSrcUrls = isProduction
-  ? ["'self'", "https://*.firebaseio.com", "https://*.googleapis.com"]
-  : ["'self'", `http://localhost:${port}`, "https://*.firebaseio.com", "https://*.googleapis.com"];
+const connectSrcUrls = ["'self'", `http://localhost:${port}/*`, "https://*.firebaseio.com", "https://*.googleapis.com"];
 
 app.use(function (req, res, next) {
   res.setHeader(
