@@ -107,6 +107,8 @@ export default {
 
 .config-list {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 1024px) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="user-profile" @mouseenter="showInfo" @mouseleave="hideInfo">
+  <div class="user-profile" @mouseenter="showInfo" @mouseleave="hideInfo" @click="handleClick" >
     <div class="user-icon">
       <i class="fas fa-user"></i>
       <i class="fas fa-caret-down"></i>
@@ -26,6 +26,9 @@ export default {
     },
     hideInfo() {
       this.isInfoVisible = false;
+    },
+    handleClick() {
+      this.$router.push('/sign-in');
     }
   }
 };
