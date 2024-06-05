@@ -3,8 +3,8 @@ import axios from 'axios';
 import { auth, signInWithEmailAndPassword } from './firebase';
 
 const port = process.env.PORT || 3000;
-
-const API_URL = `http://localhost:${port}/api/`;
+console.log("process.env.PORT",process.env.PORT)
+const API_URL = '/api/';
 
 const api = axios.create({
   baseURL: API_URL,
