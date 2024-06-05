@@ -23,7 +23,7 @@ app.use(helmet.contentSecurityPolicy({
     scriptSrc: ["'self'", "'unsafe-eval'"],
     styleSrc: ["'self'", "'unsafe-inline'"],
     imgSrc: ["'self'", "data:"],
-    connectSrc: ["'self'", "http://localhost:3000", "https://*.firebaseio.com", "https://*.googleapis.com"],
+    connectSrc: ["'self'", `http://localhost:${port}`, "https://*.firebaseio.com", "https://*.googleapis.com"],
     fontSrc: ["'self'", "https:"],
     objectSrc: ["'none'"],
     upgradeInsecureRequests: [],
