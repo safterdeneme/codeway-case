@@ -1,7 +1,13 @@
 # Codeway - Config Management Panel
-
-
-Executing Locally
+## Overview
+Config Management Panel using Node, Vue. 
+<br/>Can access deployed version from https://codeway-case-af79687c12c6.herokuapp.com/#/
+<br/>For demonstration purposes there is only one user
+```
+email: emresafter@gmail.com
+password: 123456
+```
+## Executing Locally
 1. Clone the Repository
 ```
 git clone https://github.com/your-repo/your-project.git
@@ -37,7 +43,7 @@ yarn start
 6. Access the Application
 Open your browser and navigate to http://localhost:3000.
 
-# Deploying to Heroku
+## Deploying to Heroku
 1. Create a Heroku Account and Install the Heroku CLI
 If you haven't already, create a Heroku account and install the Heroku CLI.
 2. Login to Heroku
