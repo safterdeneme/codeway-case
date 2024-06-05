@@ -1,8 +1,9 @@
 const admin = require('firebase-admin');
 
 
-
 const getServiceAccountCredential = () => {
+  console.log("process.env.FIREBASE_PROJECT_ID",process.env.FIREBASE_PROJECT_ID)
+
   const serviceAccount = {
     type: 'service_account',
     universe_domain: "googleapis.com",
