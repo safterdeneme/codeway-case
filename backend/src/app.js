@@ -18,7 +18,7 @@ app.use(cors({
 }));
 
 
-const connectSrcUrls = ["'self'", "http://localhost:3000/*" `http://localhost:${port}/*`, "https://*.firebaseio.com", "https://*.googleapis.com"];
+const connectSrcUrls = ["'self'", "http://localhost:3000/*", `http://localhost:${port}/*`, "https://*.firebaseio.com", "https://*.googleapis.com"];
 
 app.use(function (req, res, next) {
   res.setHeader(
