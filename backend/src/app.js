@@ -18,13 +18,20 @@ app.use(cors({
 }));
 
 
+const isProduction = process.env.NODE_ENV === 'production';
+console.log(isProduction,"isProductinı")
+const connectSrcUrls = isProduction
+  ? ["'self'", "https://*.firebaseio.com", "https://*.googleapis.com"]
+  : ["'self'", `http://localhost:${port}`, "https://*.firebaseio.com", "https://*.googleapis.com"];
+
 app.use(function (req, res, next) {
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+    `default-src 'self'; font-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; frame-src 'self'; connect-src ${connectSrcUrls.join(' ')}`
   );
   next();
 });
+
 
 // app.use(helmet.contentSecurityPolicy({
 //   directives: {
