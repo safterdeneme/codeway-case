@@ -17,30 +17,10 @@ app.use(cors({
   origin: '*',
 }));
 
-
-const connectSrcUrls = ["'self'", "http://localhost:3000/*", `http://localhost:${port}/*`, "https://*.firebaseio.com", "https://*.googleapis.com"];
-
-app.use(function (req, res, next) {
-  res.setHeader(
-    'Content-Security-Policy',
-    `default-src 'self'; font-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; frame-src 'self'; connect-src ${connectSrcUrls.join(' ')}`
-  );
+app.use((req, res, next) => {
+  res.removeHeader("Content-Security-Policy");
   next();
 });
-
-
-// app.use(helmet.contentSecurityPolicy({
-//   directives: {
-//     defaultSrc: ["'self'"],
-//     scriptSrc: ["'self'", "'unsafe-eval'"],
-//     styleSrc: ["'self'", "'unsafe-inline'"],
-//     imgSrc: ["'self'", "data:"],
-//     connectSrc: ["'self'", `http://localhost:${port}`, "https://*.firebaseio.com", "https://*.googleapis.com"],
-//     fontSrc: ["'self'", "https:"],
-//     objectSrc: ["'none'"],
-//     upgradeInsecureRequests: [],
-//   },
-// }));
 
 const frontendPath = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(frontendPath));
