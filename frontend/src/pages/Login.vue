@@ -24,18 +24,25 @@
       <button type="submit">Sign in</button>
     </form>
     <footer>Codeway © 2021</footer>
+    <Toast v-if="toastMessage" :type="toastType" :message="toastMessage" @close="clearToast"/>
   </div>
 </template>
 
 <script>
 import { login } from '../services/apiService'
+import Toast from '../components/Toast.vue';
 
 export default {
     name: 'SignIn',
+    components: {
+    Toast
+    },
     data() {
       return {
         email: '',
-        password: ''
+        password: '',
+        toastMessage: '',
+        toastType: 'success'
       };
     },
     methods: {
@@ -45,10 +52,20 @@ export default {
                 await login(this.email, this.password)
                 this.$router.push('/');
               } catch (err) {
+                console.log("geldi")
+                this.showToast('error', 'Email or Password is incorrect!');
                 console.log(err)
               }
-            }
+        },
+      showToast(type, message) {
+      this.toastType = type;
+      this.toastMessage = message;
+      setTimeout(() => {
+        this.toastMessage = '';
+      }, 3000);
     }
+    },
+    
   };
 </script>
 

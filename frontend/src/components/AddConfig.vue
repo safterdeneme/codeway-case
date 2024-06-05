@@ -77,7 +77,7 @@ button:hover {
     justify-content: center;
     border: 1px solid #4b4b4b;
     border-radius: 20px;
-    width: 90%;
+    width: 80%;
     padding: 20px;
 
     .button-container {

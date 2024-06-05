@@ -85,7 +85,7 @@ button:hover {
     border: 1px solid #4b4b4b;
     border-radius: 30px;
     padding: 20px;
-    width: 90%;
+    width: 80%;
 
     .label {
     display: inline;
