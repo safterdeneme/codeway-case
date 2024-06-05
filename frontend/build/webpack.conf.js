@@ -99,6 +99,16 @@ module.exports = {
         VUE_APP_FIREBASE_APP_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_APP_ID),
         VUE_APP_FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_MEASUREMENT_ID),
         VUE_APP_API_TOKEN: JSON.stringify(process.env.VUE_APP_API_TOKEN),
+        API_TOKEN: JSON.stringify(process.env.API_TOKEN) ,
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV) ,
+        FIREBASE_PROJECT_ID: JSON.stringify(process.env.FIREBASE_PROJECT_ID) ,
+        FIREBASE_PRIVATE_KEY_ID: JSON.stringify(process.env.FIREBASE_PRIVATE_KEY_ID) ,
+        FIREBASE_CLIENT_EMAIL: JSON.stringify(process.env.FIREBASE_CLIENT_EMAIL) ,
+        FIREBASE_CLIENT_ID: JSON.stringify(process.env.FIREBASE_CLIENT_ID) ,
+        FIREBASE_AUTH_URI: JSON.stringify(process.env.FIREBASE_AUTH_URI) ,
+        FIREBASE_TOKEN_URI: JSON.stringify(process.env.FIREBASE_TOKEN_URI) ,
+        FIREBASE_AUTH_PROVIDER_CERT_URL: JSON.stringify(process.env.FIREBASE_AUTH_PROVIDER_CERT_URL) ,
+        FIREBASE_CLIENT_CERT_UR: JSON.stringify(process.env.FIREBASE_CLIENT_CERT_UR) ,
       }
     })
   ].concat(
