@@ -108,7 +108,9 @@ module.exports = {
         FIREBASE_AUTH_URI: JSON.stringify(process.env.FIREBASE_AUTH_URI) ,
         FIREBASE_TOKEN_URI: JSON.stringify(process.env.FIREBASE_TOKEN_URI) ,
         FIREBASE_AUTH_PROVIDER_CERT_URL: JSON.stringify(process.env.FIREBASE_AUTH_PROVIDER_CERT_URL) ,
-        FIREBASE_CLIENT_CERT_UR: JSON.stringify(process.env.FIREBASE_CLIENT_CERT_UR) ,
+        FIREBASE_CLIENT_CERT_URL: JSON.stringify(process.env.FIREBASE_CLIENT_CERT_URL) ,
+        PORT: JSON.stringify(process.env.PORT)
+
       }
     })
   ].concat(
