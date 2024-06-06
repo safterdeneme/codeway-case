@@ -63,18 +63,11 @@ heroku buildpacks:set heroku/nodejs --app your-app-name
 ```
 
 5. Configure Environment Variables
-Set up the necessary environment variables on Heroku.
+Set up the necessary environment variables on Heroku. ex:
 
 
 ```
 heroku config:set VUE_APP_FIREBASE_API_KEY=your-api-key --app your-app-name
-heroku config:set VUE_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain --app your-app-name
-heroku config:set VUE_APP_FIREBASE_PROJECT_ID=your-project-id --app your-app-name
-heroku config:set VUE_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket --app your-app-name
-heroku config:set VUE_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id --app your-app-name
-heroku config:set VUE_APP_FIREBASE_APP_ID=your-app-id --app your-app-name
-heroku config:set VUE_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id --app your-app-name
-heroku config:set PORT=3000 --app your-app-name
 ```
 6. Add Heroku Remote
 
@@ -93,6 +86,15 @@ heroku open --app your-app-name
 ```
 9. Monitor Logs
 Monitor the Heroku logs to ensure everything is working correctly.
+
+
+## What could be done next? 
+* Dockerization
+* All backend requests get all configs over and over => Moving to a more scalable structure.
+* Responsiveness for /sign-in page and for all app tablet version. (Currently it is basically same with mobile version)
+* User profile at right most part is hard coded for only visual purposes. Could be fixed.
+* Animations are not used at all. Could utilize
+* Sign-up and Forgot Password functionalities added.
 
 
 ```
