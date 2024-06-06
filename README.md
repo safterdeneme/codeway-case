@@ -88,6 +88,11 @@ heroku open --app your-app-name
 Monitor the Heroku logs to ensure everything is working correctly.
 
 
+
+```
+heroku logs --tail --app your-app-name
+```
+
 ## What could be done next? 
 * Dockerization
 * All backend requests get all configs over and over => Moving to a more scalable structure.
@@ -95,8 +100,3 @@ Monitor the Heroku logs to ensure everything is working correctly.
 * User profile at right most part is hard coded for only visual purposes. Could be fixed.
 * Animations are not used at all. Could utilize
 * Sign-up and Forgot Password functionalities added.
-
-
-```
-heroku logs --tail --app your-app-name
-```
