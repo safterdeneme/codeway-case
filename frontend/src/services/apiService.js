@@ -34,7 +34,7 @@ const login = async (email, password) => {
 };
 
 const getConfig = async () => {
-  const response = await api.get('/get', {headers: {'api-token': process.env.VUE_APP_API_TOKEN}});
+  const response = await api.get('/get');
   return response?.data?.config;
 };
 

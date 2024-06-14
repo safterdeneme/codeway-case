@@ -98,7 +98,6 @@ module.exports = {
         VUE_APP_FIREBASE_MESSAGING_SENDER_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID),
         VUE_APP_FIREBASE_APP_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_APP_ID),
         VUE_APP_FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_MEASUREMENT_ID),
-        VUE_APP_API_TOKEN: JSON.stringify(process.env.VUE_APP_API_TOKEN),
         API_TOKEN: JSON.stringify(process.env.API_TOKEN) ,
         NODE_ENV: JSON.stringify(process.env.NODE_ENV) ,
         FIREBASE_PROJECT_ID: JSON.stringify(process.env.FIREBASE_PROJECT_ID) ,
