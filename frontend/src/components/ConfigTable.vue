@@ -1,13 +1,23 @@
 <template>
   <div class="config-table">
     <div class="header">
-      <span v-for="(column, index) in columns" :key="index">{{ column }}</span>
+      <span v-for="(column, index) in columns" :key="index">
+        <span
+          v-if="column === 'Create Date'"
+          @click="sortConfigsByDate"
+          class="sortable"
+        >
+          {{ column }}
+          <span class="arrow" :class="{ 'arrow-down': sortAsc, 'arrow-up': !sortAsc }"></span>
+        </span>
+        <span v-else>{{ column }}</span>
+      </span>
       <span></span>
       <span></span>
     </div>
     <div class="config-list">
       <ConfigRow 
-        v-for="(config, index) in configs" 
+        v-for="(config, index) in sortedConfigs" 
         :key="index" 
         :config="config" 
         :columns="columns" 
@@ -16,15 +26,14 @@
         @delete-config="deleteConfig"
       />
       <EditConfig 
-      v-if="isEditing" 
-      :config="selectedConfig" 
-      :isVisible="isEditing" 
-      @close-popup="closePopup"
-      @save-config="saveEditedConfig"
-    />
-    <AddConfig @add-config="addConfig" :columns="columns"/>
+        v-if="isEditing" 
+        :config="selectedConfig" 
+        :isVisible="isEditing" 
+        @close-popup="closePopup"
+        @save-config="saveEditedConfig"
+      />
+      <AddConfig @add-config="addConfig" :columns="columns"/>
     </div>
-    
   </div>
 </template>
 
@@ -43,7 +52,8 @@ export default {
   data() {
     return {
       isEditing: false,
-      selectedConfig: null
+      selectedConfig: null,
+      sortAsc: true
     };
   },
   props: {
@@ -54,6 +64,15 @@ export default {
     columns: {
       type: Array,
       default: () => ['Parameter Key', 'Value', 'Description', 'Create Date']
+    }
+  },
+  computed: {
+    sortedConfigs() {
+      return this.configs.slice().sort((a, b) => {
+        const dateA = new Date(a.created_at);
+        const dateB = new Date(b.created_at);
+        return this.sortAsc ? dateA - dateB : dateB - dateA;
+      });
     }
   },
   methods: {
@@ -80,6 +99,9 @@ export default {
     closePopup() {
       this.isEditing = false;
       this.selectedConfig = null;
+    },
+    sortConfigsByDate() {
+      this.sortAsc = !this.sortAsc;
     }
   }
 };
@@ -105,6 +127,28 @@ export default {
   color: #8a93af;
 }
 
+.sortable {
+  cursor: pointer;
+}
+
+.arrow {
+  display: inline-block;
+  margin-left: 5px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  vertical-align: middle;
+}
+
+.arrow-down {
+  border-top: 5px solid white;
+}
+
+.arrow-up {
+  border-bottom: 5px solid white;
+}
+
 .config-list {
   width: 100%;
   display: flex;
@@ -118,7 +162,7 @@ export default {
     height: 100%;
     overflow: scroll;
   }
-  .header{
+  .header {
     display: none;
   }
 }
