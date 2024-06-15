@@ -50,6 +50,7 @@ span {
 }
 
 .button-container {
+  max-height: 2rem;
   width: 100%;
   display: flex;
   justify-content: center;

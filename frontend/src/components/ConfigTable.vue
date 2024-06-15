@@ -87,6 +87,7 @@ export default {
 
 <style scoped>
 .config-table {
+  margin-top: 5rem;
   display: grid;
   flex-direction: column;
   align-items: center;
