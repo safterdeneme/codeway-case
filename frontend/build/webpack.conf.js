@@ -99,7 +99,6 @@ module.exports = {
         VUE_APP_FIREBASE_APP_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_APP_ID),
         VUE_APP_FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_MEASUREMENT_ID),
         API_TOKEN: JSON.stringify(process.env.API_TOKEN) ,
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV) ,
         FIREBASE_PROJECT_ID: JSON.stringify(process.env.FIREBASE_PROJECT_ID) ,
         FIREBASE_PRIVATE_KEY_ID: JSON.stringify(process.env.FIREBASE_PRIVATE_KEY_ID) ,
         FIREBASE_CLIENT_EMAIL: JSON.stringify(process.env.FIREBASE_CLIENT_EMAIL) ,
@@ -118,15 +117,9 @@ module.exports = {
           new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash].css'
           }),
-          new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-          })
         ]
       : [
           new webpack.HotModuleReplacementPlugin(),
-          new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development')
-          })
         ]
   ),
   devServer: {

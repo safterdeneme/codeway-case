@@ -2,7 +2,7 @@
   <div class="config-management">
     <div class="navbar">
       <img src="../assets/icon.png" alt="Logo" class="logo"/>
-      <UserProfile />
+      <UserProfile :email="userEmail" />
     </div> 
     <ConfigTable 
       :configs="configs" 
@@ -22,6 +22,7 @@ import UserProfile from '../components/UserProfile.vue';
 import ConfigTable from '../components/ConfigTable.vue';
 import Toast from '../components/Toast.vue';
 
+import { mapGetters } from 'vuex';
 import { getConfig, addConfig, deleteConfig, updateConfig } from '../services/apiService'
 
 export default {
@@ -40,6 +41,9 @@ export default {
       toastMessage: '',
       toastType: 'success'
     };
+  },
+  computed: {
+    ...mapGetters(['userEmail']),
   },
   async mounted() {
       const configs = await getConfig();

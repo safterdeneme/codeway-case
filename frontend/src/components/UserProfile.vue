@@ -5,9 +5,7 @@
       <i class="fas fa-caret-down"></i>
     </div>
     <div class="user-info" v-if="isInfoVisible">
-      <p><strong>Username:</strong> John Doe</p>
-      <p><strong>Email:</strong> john.doe@example.com</p>
-      <p><strong>Role:</strong> Admin</p>
+      <p><strong>Email:</strong> {{ email }}</p>
     </div>
   </div>
 </template>
@@ -19,6 +17,12 @@ export default {
     return {
       isInfoVisible: false
     };
+  },
+  props: {
+    email: {
+      type: String,
+      required: true,
+    },
   },
   methods: {
     showInfo() {

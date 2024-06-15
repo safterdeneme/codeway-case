@@ -31,6 +31,7 @@
 <script>
 import { login } from '../services/apiService'
 import Toast from '../components/Toast.vue';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'SignIn',
@@ -46,13 +47,14 @@ export default {
       };
     },
     methods: {
+      ...mapActions(['setUserEmail']),
       async signIn() {
 
         try {
                 await login(this.email, this.password)
+                this.setUserEmail(this.email);
                 this.$router.push('/');
               } catch (err) {
-                console.log("geldi")
                 this.showToast('error', 'Email or Password is incorrect!');
                 console.log(err)
               }
