@@ -7,6 +7,15 @@ Config Management Panel using Node, Vue.
 email: emresafter@gmail.com
 password: 123456
 ```
+
+
+Serve Configs for mobile clients 
+```
+curl --location 'https://codeway-case-af79687c12c6.herokuapp.com/api/serve' \
+--header 'api-token: lovethisgame'
+```
+
+
 ## Executing Locally
 1. Clone the Repository
 ```
