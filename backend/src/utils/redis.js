@@ -4,7 +4,6 @@ let redisClient = null;
 
 async function getRedisClient() {
   if (!redisClient) {
-    console.log("REDIS_URL", process.env.REDIS_URL)
     const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
     redisClient = new Redis(redisUrl);
 

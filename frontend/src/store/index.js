@@ -10,13 +10,14 @@ export default new Vuex.Store({
     toastType: 'success'
   },
   getters: {
-    userEmail: (state) => state.userEmail,
+    userEmail: (state) =>  state.userEmail || localStorage.getItem('email'),
     isAuthenticated: state => !!state.sessionTokenExists,
     toastMessage: state => state.toastMessage,
     toastType: state => state.toastType
   },
   mutations: {
     setUserEmail(state, email) {
+      localStorage.setItem('email', email);
       state.userEmail = email;
     },
     setToastMessage(state, { type, message }) {
