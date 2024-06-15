@@ -1,5 +1,11 @@
 const { db } = require("../utils/Firebase");
 
+const SERVE_CONFIG_CONSTANT_CONFIGS = {
+  support_email: 'support@codeway.co',
+  privacy_page: "https://codeway.com/privacy_en.html"
+  
+}
+
 const getAppConfig = async () => {
   const configs = [];
   const configRef = db.collection('configs');
@@ -49,9 +55,28 @@ const deleteAppConfig = async (id) => {
 
 
 
+const serveAppConfig = async () => {
+  const configs = {};
+  const configRef = db.collection('configs');
+  const snapshot = await configRef.get();
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    configs[data.key] = data.value
+  });
+  
+  Object.keys(SERVE_CONFIG_CONSTANT_CONFIGS).forEach(key => {
+    configs[key] =  SERVE_CONFIG_CONSTANT_CONFIGS[key]
+  });
+
+  return configs;
+};
+
+
+
 module.exports = {
   getAppConfig,
   updateAppConfig,
   deleteAppConfig,
-  addAppConfig
+  addAppConfig,
+  serveAppConfig
 };

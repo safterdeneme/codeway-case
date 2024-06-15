@@ -106,15 +106,13 @@ export default {
   position: fixed;
   background-color: #0b1120;  
   justify-content: space-between;
-  padding: 10px 40px 0px 40px;
+  padding: 20px 40px 0px 40px;
   box-sizing: border-box;
   top: 0;
-  height: 3rem;
 }
 
 .logo {
   width: 40px;
   margin-bottom: 20px;
-  height: fit-content;
 }
 </style>

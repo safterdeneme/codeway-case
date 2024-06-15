@@ -1,5 +1,5 @@
 
-const { getAppConfig, updateAppConfig, deleteAppConfig, addAppConfig } = require('../services/Firebase');
+const { getAppConfig, updateAppConfig, deleteAppConfig, addAppConfig, serveAppConfig } = require('../services/Firebase');
 
 
 const getConfig = async (req, res) => {
@@ -44,10 +44,22 @@ const addConfig = async (req, res) => {
   }
 };
 
+
+const serveConfig = async (req, res) => {
+  try {
+    const config = await serveAppConfig();
+    res.status(200).json({ message: 'Configs retrieved successfully', config });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 module.exports = {
   getConfig,
   updateConfig,
   deleteConfig,
-  addConfig
+  addConfig,
+  serveConfig
 
 };
