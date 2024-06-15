@@ -43,7 +43,6 @@ span {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  white-space: nowrap;
 }
 
 .label {

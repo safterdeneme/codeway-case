@@ -91,7 +91,6 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  white-space: nowrap;
 }
 
 .header {

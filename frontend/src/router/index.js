@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
         path: '/sign-in',
         query: { redirect: to.fullPath }
       });
-      store.dispatch('showToast', { type: 'error', message: 'Please log in to access this page.' });
+      store.dispatch('showToast', { type: 'error', message: 'Please first log in to access this page.' });
     } else {
       next();
     }

@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 import { auth, signInWithEmailAndPassword } from './firebase';
+import store from '../store';
 
-const port = process.env.PORT || 3000;
-console.log("process.env.PORT",process.env.PORT)
 const API_URL = '/api/';
 
 const api = axios.create({
@@ -13,8 +12,10 @@ const api = axios.create({
 const setToken = (newToken) => {
     if (newToken) {
       localStorage.setItem('token', newToken);
+      store.commit('setSessionTokenExists', true);
     } else {
       localStorage.removeItem('token');
+      store.commit('setSessionTokenExists', false);
     }
     api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
   };

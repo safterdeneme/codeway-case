@@ -5,13 +5,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userEmail: '',
+    sessionTokenExists: false,
     toastMessage: '',
     toastType: 'success'
   },
   getters: {
     userEmail: (state) => state.userEmail,
-    isAuthenticated: state => !!state.userEmail,
+    isAuthenticated: state => !!state.sessionTokenExists,
     toastMessage: state => state.toastMessage,
     toastType: state => state.toastType
   },
@@ -22,6 +22,9 @@ export default new Vuex.Store({
     setToastMessage(state, { type, message }) {
       state.toastType = type;
       state.toastMessage = message;
+    },
+    setSessionTokenExists(state, tokenExists) {
+      state.sessionTokenExists = tokenExists;
     },
     clearToast(state) {
       state.toastMessage = '';
