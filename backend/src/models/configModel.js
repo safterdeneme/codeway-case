@@ -1,12 +1,13 @@
+const { getFirebaseServerTimestamp } = require('../utils/Firebase')
 class Config {
     constructor(data) {
       this.id = data.id || null;
       this.key = data.key;
       this.value = data.value;
       this.description = data.description;
-      this.created_at = data.created_at || new Date().toLocaleString();
+      this.created_at = data.created_at || getFirebaseServerTimestamp();
+      this.updated_at = data.updated_at || getFirebaseServerTimestamp();
     }
-  
     validate() {
       if (!this.key || typeof this.key !== 'string') {
         throw new Error('Invalid key');
@@ -22,6 +23,7 @@ class Config {
         value: this.value,
         description: this.description,
         created_at: this.created_at,
+        updated_at: this.updated_at
       };
     }
   
@@ -30,6 +32,5 @@ class Config {
       return new Config({ id: doc.id, ...data });
     }
   }
-  
+
   module.exports = Config;
-  

@@ -3,7 +3,7 @@
     <span><span class="label">Parameter Key: </span>{{ config.key }}</span>
     <span><span class="label">Value: </span>{{ config.value }}</span>
     <span><span class="label">Description: </span>{{ config.description }}</span>
-    <span><span class="label">Create Date: </span>{{ config.created_at }}</span>
+    <span><span class="label">Create Date: </span>{{convertTimestampToReadable(config.created_at)}}</span>
     <div class='button-container'>
     <button class='edit-button' @click="editConfig">EDIT</button>
     <button class='delete-button' @click="deleteConfig">DELETE</button>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { convertTimestampToReadableDate } from '../helpers';
+
 export default {
   name: 'ConfigRow',
   props: {
@@ -23,7 +25,10 @@ export default {
     },
     deleteConfig() {
       this.$emit('delete-config', this.config.id);
-    }
+    },
+    convertTimestampToReadable(timestamp) {
+        return convertTimestampToReadableDate(timestamp)
+      } 
   }
 };
 </script>

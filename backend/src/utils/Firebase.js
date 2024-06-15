@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 
-
+require('dotenv').config();
 const getServiceAccountCredential = () => {
 
   const serviceAccount = {
@@ -25,12 +25,18 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccountCredential)
 });
 
+const db = admin.firestore();
 
-  const fireUser = admin.auth();
 
-  const db = admin.firestore();
+  const verifyFirebaseVerifyIdToken = async (idToken)  => {
+    return  await admin.auth().verifyIdToken(idToken);
+  }
+  const getFirebaseServerTimestamp = () => {
+    return admin.firestore.FieldValue.serverTimestamp();
+  }
 
 module.exports = {
   db,
-  fireUser
+  verifyFirebaseVerifyIdToken,
+  getFirebaseServerTimestamp
 };

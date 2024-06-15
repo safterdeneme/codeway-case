@@ -31,15 +31,24 @@ class ConfigService {
     return await ConfigService.getAppConfig();
   }
 
-  static async updateAppConfig(id, initialConfig, updatedConfig) {
+  static async updateAppConfig(id, updatedConfigData) {
     const redisClient = await getRedisClient();
-    const config = await ConfigRepository.getById(id);
-    if (ConfigService.isDocChanged(config, initialConfig)) {
-      throw new Error('Config updated from someone else. Refresh to see the latest version');
+
+    const existingUpdatedAt = updatedConfigData.updated_at
+    const updatedConfig = new Config(updatedConfigData);
+    try {
+      const updatedDoc = await ConfigRepository.update(id, updatedConfig);
+      await redisClient.del('configs');
+      return await ConfigService.getAppConfig();
+    } catch (error) {
+      if (error.message === 'No such document!') {
+        throw new Error('Config does not exist.');
+      } else if (error.message === 'Config updated by someone else. Refresh to see the latest version.') {
+        throw new Error(error.message);
+      } else {
+        throw new Error('Error updating config. Please try again.');
+      }
     }
-    await ConfigRepository.update(id, updatedConfig);
-    await redisClient.del('configs');
-    return await ConfigService.getAppConfig();
   }
 
   static async deleteAppConfig(id) {
@@ -62,15 +71,6 @@ class ConfigService {
     });
 
     return configMap;
-  }
-
-  static isDocChanged(doc, initialDoc) {
-    for (const key in initialDoc) {
-      if (initialDoc[key] !== doc[key]) {
-        return true;
-      }
-    }
-    return false;
   }
 }
 

@@ -41,6 +41,7 @@
 import ConfigRow from './ConfigRow.vue';
 import AddConfig from './AddConfig.vue';
 import EditConfig from './EditConfig.vue';
+import { convertTimestampToDate } from '../helpers';
 
 export default {
   name: 'ConfigTable',
@@ -67,13 +68,13 @@ export default {
     }
   },
   computed: {
-    sortedConfigs() {
-      return this.configs.slice().sort((a, b) => {
-        const dateA = new Date(a.created_at);
-        const dateB = new Date(b.created_at);
-        return this.sortAsc ? dateA - dateB : dateB - dateA;
-      });
-    }
+  sortedConfigs() {
+    return this.configs.slice().sort((a, b) => {
+      const dateA = convertTimestampToDate(a.created_at);
+      const dateB = convertTimestampToDate(b.created_at);
+      return this.sortAsc ? dateA - dateB : dateB - dateA;
+    });
+  }
   },
   methods: {
     addConfig(newConfig) {
@@ -87,12 +88,10 @@ export default {
     },
     editConfig(config) {
       this.selectedConfig = config;
-      const { id, ...restConfig } = config;
-      this.initialConfig = { ...restConfig };
-      this.isEditing = true;
+      this.isEditing = true; 
     },
     saveEditedConfig(updatedConfig) {
-      this.$emit('update-config', updatedConfig, this.initialConfig, updatedConfig.id);
+      this.$emit('update-config', updatedConfig, updatedConfig.id);
       this.isEditing = false;
       this.selectedConfig = null;
     },

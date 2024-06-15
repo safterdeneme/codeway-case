@@ -1,5 +1,6 @@
-const { db } = require('../utils/Firebase');
+const { db, getFirebaseServerTimestamp } = require('../utils/Firebase');
 const Config = require('../models/configModel');
+const { compareTimestamps } = require('../utils/helpers');
 
 class ConfigRepository {
   static async getAll() {
@@ -27,9 +28,24 @@ class ConfigRepository {
     return config;
   }
 
-  static async update(id, updatedData) {
+  static async update(id, updatedConfig) {
     const configRef = db.collection('configs').doc(id);
-    await configRef.update(updatedData);
+    return await db.runTransaction(async (transaction) => {
+      const docSnapshot = await transaction.get(configRef);
+
+      if (!docSnapshot.exists) {
+        throw new Error('No such document!');
+      }
+      const currentUpdatedAt = docSnapshot.get('updated_at');
+  
+      if (currentUpdatedAt && !compareTimestamps(currentUpdatedAt, updatedConfig?.updated_at)){
+        throw new Error('Config updated by someone else. Refresh to see the latest version.');
+      }
+
+      updatedConfig.updated_at = getFirebaseServerTimestamp();
+      transaction.update(configRef, updatedConfig.toFirestoreObject());
+      return Config.fromFirestore(docSnapshot);
+    });
   }
 
   static async delete(id) {

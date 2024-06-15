@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-
+const { verifyFirebaseVerifyIdToken } = require('../utils/Firebase')
 const validateFirebaseIdToken = async (req, res, next) => {
   const idToken = req.headers['authorization']?.split('Bearer ')[1];
 
@@ -8,7 +8,7 @@ const validateFirebaseIdToken = async (req, res, next) => {
   }
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const decodedToken = await verifyFirebaseVerifyIdToken(idToken);
     req.user = decodedToken;
     next();
   } catch (error) {
