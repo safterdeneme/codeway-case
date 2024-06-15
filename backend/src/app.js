@@ -4,6 +4,7 @@ const cors = require('cors');
 const compression = require('compression');
 const path = require('path');
 const { configRoute } = require('./routes');
+const getRedisClient = require('../src/utils/redis');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,6 +32,14 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+(async () => {
+  try {
+    await getRedisClient();
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  } catch (err) {
+    console.error('Failed to initialize Redis client:', err);
+    process.exit(1);
+  }
+})();
