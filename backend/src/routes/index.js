@@ -1,1 +1,1 @@
-module.exports.FirebaseRoutes = require('./Firebase');
+module.exports.configRoute = require('./configRoute');

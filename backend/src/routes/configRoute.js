@@ -4,7 +4,7 @@ const router = express.Router();
 const validateFirebaseIdToken = require("../middlewares/validateFirebaseIdToken");
 const authenticateWithPredefinedToken = require("../middlewares/authenticateWithPredefinedToken");
 
-const { updateConfig, getConfig, deleteConfig, addConfig, serveConfig } = require("../controllers/Firebase");
+const { updateConfig, getConfig, deleteConfig, addConfig, serveConfig } = require("../controllers/configController");
 
 router.put("/update/:id", validateFirebaseIdToken, updateConfig);
 router.delete("/delete/:id", validateFirebaseIdToken, deleteConfig);

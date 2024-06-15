@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
 const path = require('path');
-const { FirebaseRoutes } = require('./routes');
+const { configRoute } = require('./routes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 const frontendPath = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(frontendPath));
 
-app.use('/api', FirebaseRoutes);
+app.use('/api', configRoute);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));

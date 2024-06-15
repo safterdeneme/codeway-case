@@ -1,5 +1,5 @@
 
-const { getAppConfig, updateAppConfig, deleteAppConfig, addAppConfig, serveAppConfig } = require('../services/Firebase');
+const { getAppConfig, updateAppConfig, deleteAppConfig, addAppConfig, serveAppConfig } = require('../services/configService');
 
 
 const getConfig = async (req, res) => {
