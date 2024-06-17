@@ -1,4 +1,11 @@
 # Codeway - Config Management Panel
+
+## New Features 
+* Debug fixes
+* Config Model and Config Repository added to have robust database backend relation
+* Redis added to work robust under high load
+* Country Specific Value add feature added
+
 ## Overview
 Config Management Panel using Node, Vue. 
 <br/>Can access deployed version from https://codeway-case-af79687c12c6.herokuapp.com/#/
