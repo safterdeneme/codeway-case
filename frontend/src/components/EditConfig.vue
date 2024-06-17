@@ -4,8 +4,11 @@
       <div class="close-button" @click="$emit('close-popup')">
         <i class="fas fa-times-circle"></i>
       </div>
+      <div class="text-label">Parameter Key </div>
       <input type="text" v-model="editedConfig.key" placeholder="Parameter Key" />
+      <div class="text-label">Value </div>
       <input type="text" v-model="editedConfig.value" placeholder="Value" />
+      <div class="text-label">Description</div>
       <input type="text" v-model="editedConfig.description" placeholder="Description" />
       <div class="button-container">
         <button @click="saveConfig">SAVE</button>
@@ -64,6 +67,8 @@ export default {
   background-color: #333;
   border-radius: 10px;
   position: relative;
+  margin: 0rem 2rem 0rem 2rem;
+
 }
 
 input {
@@ -77,6 +82,14 @@ input {
 
 input::placeholder {
   color: #8a93af;
+}
+.text-label {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  color: #00d1b2;
+  margin-bottom: -7px;
 }
 
 button {
