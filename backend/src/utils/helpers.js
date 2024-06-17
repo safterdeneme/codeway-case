@@ -4,8 +4,8 @@ const convertTimestampToMilisecond = (timestamp) => {
 
 
 const compareTimestamps = (timestampA, timestampB) => {
-    const msA = this.convertTimestampToMilisecond(timestampA);
-    const msB = this.convertTimestampToMilisecond(timestampB);
+    const msA = convertTimestampToMilisecond(timestampA);
+    const msB = convertTimestampToMilisecond(timestampB);
 
     return msA === msB
 }

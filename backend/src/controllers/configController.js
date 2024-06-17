@@ -47,7 +47,8 @@ const addConfig = async (req, res) => {
 
 const serveConfig = async (req, res) => {
   try {
-    const config = await serveAppConfig();
+    const countryCode = req.query.country 
+    const config = await serveAppConfig(countryCode);
     res.status(200).json({ message: 'Configs retrieved successfully', config });
   } catch (error) {
     res.status(500).json({ error: error.message });

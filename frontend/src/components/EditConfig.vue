@@ -10,6 +10,24 @@
       <input type="text" v-model="editedConfig.value" placeholder="Value" />
       <div class="text-label">Description</div>
       <input type="text" v-model="editedConfig.description" placeholder="Description" />
+      
+      <div class="text-label">Country-Specific Configurations</div>
+      <div v-for="(value, country) in editedConfig.country_specific" :key="country" class="country-config-row">
+        <select v-model="country" disabled>
+          <option :value="country">{{ country }}</option>
+        </select>
+        <input type="text" v-model="editedConfig.country_specific[country]" placeholder="Value" />
+        <button class="minus-button" @click="removeCountryConfig(country)">-</button>
+      </div>
+      <div class="country-config-row">
+        <select v-model="newCountryConfig.country">
+          <option value="" disabled selected>Select Country</option>
+          <option v-for="country in availableCountries" :key="country" :value="country">{{ country }}</option>
+        </select>
+        <input type="text" v-model="newCountryConfig.value" placeholder="Value" />
+        <button class="plus-button" @click="addCountryConfig">+</button>
+      </div>
+
       <div class="button-container">
         <button @click="saveConfig">SAVE</button>
       </div>
@@ -26,12 +44,25 @@ export default {
   },
   data() {
     return {
-      editedConfig: { ...this.config }
+      editedConfig: { 
+        ...this.config,
+        country_specific: this.config.country_specific || {}
+      },
+      newCountryConfig: { country: '', value: '' },
+      allCountries: ['TR', 'US', 'DE', 'FR']
     };
+  },
+  computed: {
+    availableCountries() {
+      return this.allCountries.filter(country => !this.editedConfig.country_specific.hasOwnProperty(country));
+    }
   },
   watch: {
     config(newParam) {
-      this.editedConfig = { ...newParam };
+      this.editedConfig = { 
+        ...newParam,
+        country_specific: newParam.country_specific || {}
+      };
     }
   },
   methods: {
@@ -39,10 +70,20 @@ export default {
       if (this.editedConfig.key && this.editedConfig.value && this.editedConfig.description) {
         this.$emit('save-config', { ...this.editedConfig });
       }
+    },
+    addCountryConfig() {
+      if (this.newCountryConfig.country && this.newCountryConfig.value) {
+        this.$set(this.editedConfig.country_specific, this.newCountryConfig.country, this.newCountryConfig.value);
+        this.newCountryConfig = { country: '', value: '' };
+      }
+    },
+    removeCountryConfig(country) {
+      this.$delete(this.editedConfig.country_specific, country);
     }
   }
 };
 </script>
+
 <style scoped>
 .edit-config-overlay {
   position: fixed;
@@ -68,10 +109,9 @@ export default {
   border-radius: 10px;
   position: relative;
   margin: 0rem 2rem 0rem 2rem;
-
 }
 
-input {
+input, select {
   flex: 1;
   padding: 10px;
   border: 1px solid #4b4b4b;
@@ -83,6 +123,11 @@ input {
 input::placeholder {
   color: #8a93af;
 }
+
+select {
+  color: white;
+}
+
 .text-label {
   display: flex;
   justify-content: flex-start;
@@ -127,4 +172,21 @@ button {
   cursor: pointer;
 }
 
+.country-config-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+.plus-button, .minus-button{
+  display: flex;
+  width: 1rem;
+  justify-content: center
+  }
+.minus-button {
+  background-color: red;
+}
+.plus-button {
+  background-color: greenyellow;
+}
+}
 </style>

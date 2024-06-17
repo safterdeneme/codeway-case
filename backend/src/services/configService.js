@@ -4,20 +4,31 @@ const Config = require('../models/configModel');
 const { SERVE_CONFIG_CONSTANT_CONFIGS } = require('../constants');
 
 class ConfigService {
-  static async getAppConfig() {
+  static async getAppConfig(countryCode = null) {
     const redisClient = await getRedisClient();
+    let cacheKey = 'configs';
+    if (countryCode) {
+      cacheKey += `_${countryCode}`;
+    }
 
     try {
-      const configs = await redisClient.get('configs');
+      const configs = await redisClient.get(cacheKey);
       if (configs) {
         return JSON.parse(configs);
       }
 
       const dbConfigs = await ConfigRepository.getAll();
-      await redisClient.setex('configs', 600, JSON.stringify(dbConfigs));
-      return dbConfigs;
+      const countrySpecificConfigs = dbConfigs.map(config => {
+        if (countryCode && config?.country_specific?.[countryCode]) {
+          return { ...config, value: config.country_specific[countryCode] };
+        }
+        return config;
+      });
+
+      await redisClient.setex(cacheKey, 600, JSON.stringify(countrySpecificConfigs));
+      return countrySpecificConfigs;
     } catch (err) {
-      console.error('Error getting configs from Redis:', err);
+      console.error('Error', err);
       throw err;
     }
   }
@@ -34,7 +45,6 @@ class ConfigService {
   static async updateAppConfig(id, updatedConfigData) {
     const redisClient = await getRedisClient();
 
-    const existingUpdatedAt = updatedConfigData.updated_at
     const updatedConfig = new Config(updatedConfigData);
     try {
       const updatedDoc = await ConfigRepository.update(id, updatedConfig);
@@ -58,8 +68,8 @@ class ConfigService {
     return await ConfigService.getAppConfig();
   }
 
-  static async serveAppConfig() {
-    const configs = await ConfigService.getAppConfig();
+  static async serveAppConfig(countryCode) {
+    const configs = await ConfigService.getAppConfig(countryCode);
 
     const configMap = configs.reduce((acc, config) => {
       acc[config.key] = config.value;
