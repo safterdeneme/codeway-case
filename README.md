@@ -27,6 +27,11 @@ curl --location 'https://codeway-case-af79687c12c6.herokuapp.com/api/serve' \
 --header 'api-token: lovethisgame'
 ```
 
+Serve Config Specific to Country 
+```
+curl --location 'https://codeway-case-af79687c12c6.herokuapp.com/api/serve?country={countryCode}' \
+--header 'api-token: lovethisgame'
+```
 
 ## Executing Locally
 1. Clone the Repository
@@ -82,42 +87,38 @@ heroku create your-app-name
 ```
 heroku buildpacks:set heroku/nodejs --app your-app-name
 ```
+5. Add Redis Addon
+```
+heroku addons:create heroku-redis:hobby-dev --app your-app-name
+```
 
-5. Configure Environment Variables
+6. Configure Environment Variables
 Set up the necessary environment variables on Heroku. ex:
 
 
 ```
 heroku config:set VUE_APP_FIREBASE_API_KEY=your-api-key --app your-app-name
 ```
-6. Add Heroku Remote
+7. Add Heroku Remote
 
 ```
 git remote add heroku https://git.heroku.com/your-app-name.git
 ```
-7. Deploy to Heroku
+8. Deploy to Heroku
 
 ```
 git push heroku main
 ```
-8. Open Your Application
+9. Open Your Application
 
 ```
 heroku open --app your-app-name
 ```
-9. Monitor Logs
+19. Monitor Logs
 Monitor the Heroku logs to ensure everything is working correctly.
-
 
 
 ```
 heroku logs --tail --app your-app-name
 ```
 
-## What could be done next? 
-* Dockerization
-* All backend requests get all configs over and over => Moving to a more scalable structure.
-* Responsiveness for /sign-in page and for all app tablet version. (Currently it is basically same with mobile version)
-* User profile at right most part is hard coded for only visual purposes. Could be fixed.
-* Animations are not used at all. Could utilize
-* Sign-up and Forgot Password functionalities added.
