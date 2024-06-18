@@ -54,4 +54,13 @@ const deleteConfig = async (id) => {
   return response?.data?.config;
 };
 
-export { login, getConfig, addConfig, updateConfig, deleteConfig, initializeToken };
+const serveConfig = async (countryCode) => {
+  const response = await api.get(`/serve?country=${countryCode}`, {
+    headers: {
+      'api-token': process.env.VUE_API_TOKEN
+    }
+  })
+  return response?.data?.config
+}
+
+export { login, getConfig, addConfig, updateConfig, deleteConfig, initializeToken, serveConfig };

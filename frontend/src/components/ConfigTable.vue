@@ -69,7 +69,7 @@ export default {
   },
   computed: {
   sortedConfigs() {
-    return this.configs.slice().sort((a, b) => {
+    return this.configs?.slice().sort((a, b) => {
       const dateA = convertTimestampToDate(a.created_at);
       const dateB = convertTimestampToDate(b.created_at);
       return this.sortAsc ? dateA - dateB : dateB - dateA;

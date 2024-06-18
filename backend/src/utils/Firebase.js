@@ -25,7 +25,8 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccountCredential)
 });
 
-const db = admin.firestore();
+  const db = admin.firestore();
+  db.settings({ ignoreUndefinedProperties: true })
 
 
   const verifyFirebaseVerifyIdToken = async (idToken)  => {
