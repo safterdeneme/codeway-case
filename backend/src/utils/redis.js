@@ -26,4 +26,24 @@ async function getRedisClient() {
   return redisClient;
 }
 
-module.exports = getRedisClient;
+const clearCache = async ({keyName, isRegex, redisClient}) => {
+  try {
+    if (isRegex) {
+      const pattern = `*${keyName}*`;
+
+      const matchedKeys = await redisClient.keys(pattern);
+
+      if (matchedKeys?.length > 0) {
+        for (const key of matchedKeys) {
+          await redisClient.del(key);
+        }
+      }
+    } else {
+      await redisClient.del(keyName)
+    }
+  } catch (error) {
+    console.error("Error deleting redis cache:", error);
+  }
+};
+
+module.exports = {getRedisClient, clearCache};

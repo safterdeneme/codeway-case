@@ -1,10 +1,15 @@
 # Codeway - Config Management Panel
 
-## New Features 
-* Debug fixes
-* Config Model and Config Repository added to have robust database backend relation
-* Redis added to work robust under high load
+## What is added & fixed
+* Serve API added
 * Country Specific Value add feature added
+* World Map Tab added to see country specific configs easily
+* Redis added to work robust under high load
+* Prevent Overwrite upon update feature enhanced to make it faster
+* User profile dummy values fixed
+* Can't see configs without sign in
+* Overall responsiveness fixed
+* Config Model and Config Repository added to have robust database backend relation
 
 ## Overview
 Config Management Panel using Node, Vue. 

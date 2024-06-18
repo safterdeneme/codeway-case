@@ -1,4 +1,4 @@
-const getRedisClient = require('../utils/redis');
+const { getRedisClient, clearCache } = require('../utils/redis');
 const ConfigRepository = require('../repositories/configRepository');
 const Config = require('../models/configModel');
 const { SERVE_CONFIG_CONSTANT_CONFIGS } = require('../constants');
@@ -38,7 +38,7 @@ class ConfigService {
     const newConfig = new Config(newConfigData);
     newConfig.validate();
     await ConfigRepository.save(newConfig);
-    await redisClient.del('configs');
+    await clearCache({keyName: 'configs', isRegex: true, redisClient})
     return await ConfigService.getAppConfig();
   }
 
@@ -48,7 +48,7 @@ class ConfigService {
     const updatedConfig = new Config(updatedConfigData);
     try {
       const updatedDoc = await ConfigRepository.update(id, updatedConfig);
-      await redisClient.del('configs');
+      await clearCache({keyName: 'configs', isRegex: true, redisClient})
       return await ConfigService.getAppConfig();
     } catch (error) {
       if (error.message === 'No such document!') {
@@ -64,7 +64,7 @@ class ConfigService {
   static async deleteAppConfig(id) {
     const redisClient = await getRedisClient();
     await ConfigRepository.delete(id);
-    await redisClient.del('configs');
+    await clearCache({keyName: 'configs', isRegex: true, redisClient})
     return await ConfigService.getAppConfig();
   }
 

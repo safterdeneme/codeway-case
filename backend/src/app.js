@@ -4,7 +4,7 @@ const cors = require('cors');
 const compression = require('compression');
 const path = require('path');
 const { configRoute } = require('./routes');
-const getRedisClient = require('../src/utils/redis');
+const { getRedisClient } = require('../src/utils/redis');
 
 const app = express();
 const port = process.env.PORT || 3000;

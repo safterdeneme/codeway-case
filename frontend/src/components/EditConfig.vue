@@ -5,7 +5,7 @@
         <i class="fas fa-times-circle"></i>
       </div>
       <div class="text-label">Parameter Key </div>
-      <input type="text" v-model="editedConfig.key" placeholder="Parameter Key" />
+      <input class="parameter-key-input" disabled type="text" v-model="editedConfig.key" placeholder="Parameter Key" />
       <div class="text-label">Value </div>
       <input type="text" v-model="editedConfig.value" placeholder="Value" />
       <div class="text-label">Description</div>
@@ -122,6 +122,10 @@ input, select {
 
 input::placeholder {
   color: #8a93af;
+}
+
+.parameter-key-input {
+  opacity: 50%;
 }
 
 select {
